@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ysq.cc.dao.UserDao">
+    <resultMap id="user" type="cn.ysq.cc.model.User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <id property="name" column="name" jdbcType="VARCHAR"/>
+        <id property="password" column="password" jdbcType="VARCHAR"/>
+        <id property="updated" column="updated" jdbcType="TIMESTAMP"/>
+        <id property="created" column="created" jdbcType="TIMESTAMP"/>
+        <id property="email" column="email" jdbcType="VARCHAR"/>
+        <id property="telephone" column="telephone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="userCol">
+        `id`,`name`,`password`,`updated`,`created`,`email`,`telephone`
+    </sql>
+    
+    <select id="getUserById" resultMap="user" parameterType="java.lang.Long">
+        SELECT
+        <include refid="userCol"/>
+        FROM
+        `cc_user`
+        WHERE
+        `id` = #{id}
+    </select>
+
+    <select id="getUserByName" resultMap="user" parameterType="java.lang.String">
+        SELECT
+        <include refid="userCol"/>
+        FROM
+        `cc_user`
+        WHERE
+        `name` = #{name}
+    </select>
+</mapper>
+
