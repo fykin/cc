@@ -1,6 +1,6 @@
 package cn.ysq.cc.action.impl;
 
-import cn.ysq.cc.action.UserAction;
+import cn.ysq.cc.action.BaseAction;
 import cn.ysq.cc.model.User;
 import cn.ysq.cc.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/user/*.do")
-public class UserActionImpl implements UserAction {
+public class UserActionImpl implements BaseAction {
 	@Resource
 	UserService userService;
 
@@ -26,5 +26,25 @@ public class UserActionImpl implements UserAction {
 		model.addAttribute("user", user);
 
 		return "/user";
+	}
+
+	@RequestMapping(value = "/user/add.do")
+	public String addUser(
+			@RequestParam("name") String name,
+			@RequestParam("password") String password,
+			@RequestParam(value = "email") String email,
+			@RequestParam(value = "telephone", required = false) String telephone,
+			Model model
+			) {
+		User user = new User();
+		user.setName(name);
+		user.setPassword(password);
+		user.setEmail(email);
+		if (null != telephone)
+			user.setTelephone(telephone);
+		userService.registeUser(user);
+
+		model.addAttribute("name", name);
+		return "redirect:/user/get.do";
 	}
 }

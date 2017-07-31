@@ -7,6 +7,7 @@ public class User {
 	private Long id;
 	private String name;
 	private String password;
+	private Integer status;
 	private Date updated;
 	private Date created;
 	private String email;
@@ -34,6 +35,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Date getUpdated() {

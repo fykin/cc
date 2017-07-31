@@ -8,6 +8,7 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <id property="name" column="name" jdbcType="VARCHAR"/>
         <id property="password" column="password" jdbcType="VARCHAR"/>
+        <id property="status" column="status" jdbcType="INTEGER"/>
         <id property="updated" column="updated" jdbcType="TIMESTAMP"/>
         <id property="created" column="created" jdbcType="TIMESTAMP"/>
         <id property="email" column="email" jdbcType="VARCHAR"/>
@@ -15,7 +16,7 @@
     </resultMap>
 
     <sql id="userCol">
-        `id`,`name`,`password`,`updated`,`created`,`email`,`telephone`
+        `id`,`name`,`password`,`status`,`updated`,`created`,`email`,`telephone`
     </sql>
     
     <select id="getUserById" resultMap="user" parameterType="java.lang.Long">
@@ -35,5 +36,32 @@
         WHERE
         `name` = #{name}
     </select>
+
+    <update id="updateUser" parameterType="cn.ysq.cc.model.User">
+        UPDATE
+        `cc_user`
+        SET
+        `name` = #{name},
+        `password` = #{password},
+        `status` = #{status},
+        `updated` = CURRENT_TIMESTAMP,
+        `email` = #{email},
+        `telephone` = #{telephone}
+        WHERE
+        `id` = #{id}
+    </update>
+
+    <insert id="insertUser" parameterType="cn.ysq.cc.model.User">
+        INSERT INTO
+        `cc_user`(`name`,`password`,`updated`,`created`,`email`,`telephone`)
+        VALUES (
+        #{name},
+        #{password},
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        #{email},
+        #{telephone}
+        )
+    </insert>
 </mapper>
 

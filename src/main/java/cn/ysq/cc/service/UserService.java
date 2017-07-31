@@ -6,4 +6,6 @@ public interface UserService {
 
 	User getUser(Long id);
 	User getUser(String name);
+
+	void registeUser(User user);
 }

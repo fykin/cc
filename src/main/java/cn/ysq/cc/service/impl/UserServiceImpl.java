@@ -19,4 +19,8 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String name) {
 		return userDao.getUserByName(name);
 	}
+
+	public void registeUser(User user) {
+		userDao.insertUser(user);
+	}
 }
